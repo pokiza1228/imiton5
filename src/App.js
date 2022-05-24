@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import { createContext, useEffect, useState } from 'react';
+import Main from './screans/main/main';
+import Feedback from './screans/feedback/feedback';
+import Add from './screans/add/add';
+import Edit from './screans/edit/edit';
+export const ProductContext = createContext();
+
 
 function App() {
+
+  const [ posts, setPosts ] = useState();
+  useEffect(()=>{
+      fetch('/data.json')
+    .then(response => response.json())
+    .then(data => setPosts(data))
+  },[]);
+
+  if (!posts) {
+    return null
+}
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ProductContext.Provider value={{posts, setPosts}}>
+     <Routes>
+      <Route path="/" element={<Main /> }/>
+      <Route path="/feedback/:id" element={<Feedback />}/>
+      <Route path='/add' element={<Add />}/>
+      <Route path='/edit/:id' element={<Edit />}/>
+    </Routes>
+    </ProductContext.Provider>
   );
 }
 
