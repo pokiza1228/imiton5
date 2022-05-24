@@ -11,8 +11,8 @@ const Add=()=>{
     const submit =(evt)=>{
         evt.preventDefault();
         let nameValue=Name.current.value;
-        let emailValue=Name.current.value;
-        let bodyValue=Name.current.value;
+        let emailValue=Email.current.value;
+        let bodyValue=Body.current.value;
 
 
         let newPost= [
