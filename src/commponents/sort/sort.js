@@ -8,7 +8,7 @@ const Sort=()=>{
     const sort=(evt)=>{
 
         evt.preventDefault();
-    const value=ref1.current.value
+        const value=ref1.current.value
 
         setPosts((post)=>[
             ...post.sort((a,b)=>{
@@ -38,7 +38,7 @@ const Sort=()=>{
     
     return (
         <>
-            <h1>Sort by</h1>
+            <p>Sort by</p>
             <form onSubmit={sort}>
                 <select ref={ref1}>
                     <option value="1"> A-Z</option>
