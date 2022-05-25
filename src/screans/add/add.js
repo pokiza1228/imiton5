@@ -1,9 +1,10 @@
 import { useContext, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { ProductContext } from "../../App";
 
 const Add=()=>{
     const {posts,setPosts}=useContext(ProductContext);
-
+    const navigate=useNavigate();
     const Name=useRef();
     const Email=useRef();
     const Body=useRef();
@@ -13,19 +14,20 @@ const Add=()=>{
         let nameValue=Name.current.value;
         let emailValue=Email.current.value;
         let bodyValue=Body.current.value;
-
-
-        let newPost= [
-                ...[{
-                    "postId": Math.floor(Math.random()*1000),
-                    "id": Math.floor(Math.random()*1000),
-                    "name": nameValue,
-                    "email": emailValue,
-                    "body": bodyValue
-                }],
-                ...posts
-        ]
-            setPosts(newPost);
+if(nameValue && emailValue && bodyValue){
+    let newPost= [
+        ...[{
+            "postId": Math.floor(Math.random()*1000),
+            "id": Math.floor(Math.random()*1000),
+            "name": nameValue,
+            "email": emailValue,
+            "body": bodyValue
+        }],
+        ...posts
+]
+    setPosts(newPost);
+    navigate("/")
+}
     }
 
 

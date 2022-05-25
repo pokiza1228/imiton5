@@ -1,8 +1,9 @@
 import { useContext, useRef } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { ProductContext } from "../../App";
 
 const Edit=()=>{
+    const navigate=useNavigate();
     const {id}=useParams();
     const name=useRef();
     const email=useRef();
@@ -24,12 +25,14 @@ const Edit=()=>{
         }  
         
         setPosts((post)=>{return( post.splice(editIndex, 1, newPost),post)});
+        navigate("/")
     }
 
     const delet=(evt)=>{
         evt.preventDefault();
         const editIndex=posts && posts.findIndex((abs)=>abs.id===+id)
         setPosts(post=>{return (post.splice(editIndex, 1),post)})
+        navigate("/")
     }
     return(
         <>
@@ -46,7 +49,7 @@ const Edit=()=>{
             </label>
             <button type="submit">Edd comment</button>
         </form>
-        <button onClick={delet} type="click"><Link to={"/"}>Delet</Link></button>
+        <button onClick={delet} type="click">Delet</button>
         </>
     )
 }
