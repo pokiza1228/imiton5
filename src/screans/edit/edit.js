@@ -1,5 +1,5 @@
 import { useContext, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { ProductContext } from "../../App";
 
 const Edit=()=>{
@@ -7,10 +7,7 @@ const Edit=()=>{
     const name=useRef();
     const email=useRef();
     const body=useRef();
-    // const nameValue=name.current.value;
-    // let emailValue=email.current.value;
-    // let bodyValue= body.current.value
-    
+
     const {posts,setPosts}=useContext(ProductContext);
     const post=posts && posts.map((post)=>post);
     let edit=post.find((post)=>post.id===+id)
@@ -28,6 +25,12 @@ const Edit=()=>{
         
         setPosts((post)=>{return( post.splice(editIndex, 1, newPost),post)});
     }
+
+    const delet=(evt)=>{
+        evt.preventDefault();
+        const editIndex=posts && posts.findIndex((abs)=>abs.id===+id)
+        setPosts(post=>{return (post.splice(editIndex, 1),post)})
+    }
     return(
         <>
         <h1>Edit</h1>
@@ -43,6 +46,7 @@ const Edit=()=>{
             </label>
             <button type="submit">Edd comment</button>
         </form>
+        <button onClick={delet} type="click"><Link to={"/"}>Delet</Link></button>
         </>
     )
 }
