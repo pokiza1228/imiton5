@@ -1,15 +1,17 @@
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
 import { ProductContext } from "../../App";
 
 const Filter=()=>{
-    const {setPosts}=useContext(ProductContext);
+    const {posts,setPosts}=useContext(ProductContext);
+    const [filterPost,setFilter]=useState(posts);
+
     const search=useRef();
     const sumbit=(evt)=>{
         evt.preventDefault();
         const searchValue=search.current.value;
-        console.log(searchValue)
-        setPosts((post)=>[
-            ...post.filter((product)=>{
+        
+        setPosts([
+            ...filterPost.filter((product)=>{
                 return(
                     product.name.toLowerCase()).includes((searchValue.toLowerCase())
                 )
